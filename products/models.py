@@ -17,3 +17,5 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'Продукт: {self.name} | Категории: {self.category.name}'
