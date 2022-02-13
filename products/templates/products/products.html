@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +11,10 @@
 	<div class="container">
 		<div class="hero-white">
 			<div class="header clearfix">
-				<a href="index.html" class="logo"></a>
+				<a href="{% url 'index' %}" class="logo"></a>
 				<ul class="menu">
-					<li><a href="index.html">домой</a></li>
-					<li><a href="products.html" class="active">продукты</a></li>
+					<li><a href="{% url 'index' %}">домой</a></li>
+					<li><a href="{% url 'products' %}" class="active">продукты</a></li>
 					<li><a href="contact.html">контакты</a></li>
 
 				</ul>

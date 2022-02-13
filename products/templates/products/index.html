@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +11,10 @@
 	<div class="container">
 		<div class="slider">
 			<div class="header clearfix">
-				<a href="index.html" class="logo"></a>
+				<a href="{% url 'index' %}" class="logo"></a>
 				<ul class="menu">
-					<li><a href="index.html" class="active">домой</a></li>
-					<li><a href="products.html">продукты</a></li>
+					<li><a href="{% url 'index' %}" class="active">домой</a></li>
+					<li><a href="{% url 'products' %}">продукты</a></li>
 					<li><a href="contact.html">контакты</a></li>
 				</ul>
 				<a href="#" class="search"></a>
@@ -22,7 +23,7 @@
 				<h3 class="green">тенденции</h3>
 				<h3 class="big"> удобные стулья</h3>
 				<p>Новый уровень комфорта. Отличные характеристики.</p>
-				<a href="#" class="button-order">заказать <img src="/static/img/arrow.png" alt=""></a>
+				<a href="{% url 'products' %}" class="button-order">заказать <img src="/static/img/arrow.png" alt=""></a>
 			</div>	
 			<div class="navi">
 				<a href="#"></a><a href="#"></a><a href="#"></a>
@@ -38,7 +39,7 @@
 			</div>
 			<div class="tab-content">
 				<div class="block">
-					<a href="#"><img src="/static/img/product-1.jpg" alt=""> 
+					<a href="{% url 'products' %}"><img src="/static/img/product-1.jpg" alt=""> 
 						<div class="text">
 							<img src="/static/img/icon-hover.png" alt="img">
 							<h4>Отличный стул</h4>
@@ -47,7 +48,7 @@
 					</a>
 				</div>
 				<div class="block">
-					<a href="#"><img src="static/img/product-2.jpg" alt="">
+					<a href="{% url 'products' %}"><img src="static/img/product-2.jpg" alt="">
 						<div class="text">
 							<img src="static/img/icon-hover.png" alt="">
 							<h4>Стул повышенного качества</h4>
