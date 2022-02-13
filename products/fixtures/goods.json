@@ -1,0 +1,26 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "╬Єышўэ√щ ёЄєы",
+      "image": "",
+      "description": "╨рёяюыюцшЄхё№ ъюьЇюЁЄэю.",
+      "price": "2585.90",
+      "quantity": 10,
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "╤Єєы яют√°хээюую ърўхёЄтр",
+      "image": "",
+      "description": "т√ёюўрщ°шщ єЁютхэ№ ¤Ёуюэюьшъш ш яЁюўэюёЄ№.",
+      "price": "1980.50",
+      "quantity": 2,
+      "category": 1
+    }
+  }
+]
