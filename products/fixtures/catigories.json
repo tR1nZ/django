@@ -1,0 +1,12 @@
+[
+  {
+    "model": "products.productcategory",
+    "pk": 1,
+    "fields": { "name": "╠хсхы№", "description": "" }
+  },
+  {
+    "model": "products.productcategory",
+    "pk": 2,
+    "fields": { "name": "╤тхЄшы№эшъш", "description": "" }
+  }
+]
