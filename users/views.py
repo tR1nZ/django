@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib import messages
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from baskets.models import Basket
+from django.contrib.auth.decorators import login_required
 
 def login(request):
     if request.method == 'POST':
@@ -37,17 +38,19 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+@login_required
 def profile(request):
+    user = request.user
     if request.method == 'POST':
-        form = UserProfileForm(instance=request.user, files=request.FILES, data=request.POST)
+        form = UserProfileForm(instance=user, files=request.FILES, data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('users:profile'))
     else:
-        form = UserProfileForm(instance=request.user)
+        form = UserProfileForm(instance=user)
     context = {
         'title': 'GeekShop - Профиль',
         'form': form,
-        'baskets': Basket.objects.filter(user=request.  user),
+        'baskets': Basket.objects.filter(user=user),
     }
-    return render(request, 'users/profile.html', context)  
+    return render(request, 'users/profile.html', context) 
