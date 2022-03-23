@@ -1,3 +1,4 @@
+import random, hashlib
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import ShopUser
@@ -33,6 +34,15 @@ class ShopUserRegisterForm(UserCreationForm):
             raise forms.ValidationError("Вы слишком молоды!")
 
         return data
+
+    def save(self, commit=True):
+        user = super(ShopUserRegisterForm, self).save()
+        user.is_active = False
+        salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
+        user.activation_key = hashlib.sha1((user.email +
+                                            salt).encode('utf8')).hexdigest()
+        user.save(update_fields=['is_active', 'activation_key'])
+        return user
         
 
 class ShopUserEditForm(UserChangeForm):
