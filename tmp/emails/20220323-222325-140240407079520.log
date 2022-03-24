@@ -1,0 +1,15 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JTQu9GPINCw0LrRgtC40LLQsNGG0LjQuCDQv9C+0LvRjNC30L7QstCw0YLQtdC7?=
+ =?utf-8?b?0Y8gZnNoYXRydWtAdXNldGVjaC5ydSDQv9GA0L7QudC00LjRgtC1INC/0L4g0YE=?=
+ =?utf-8?b?0YHRi9C70LrQtQ==?=
+From: django@mail.com
+To: fshatruk@usetech.ru
+Date: Wed, 23 Mar 2022 17:23:25 -0000
+Message-ID: <164805620571.176351.16861056700017339449@fedor-Aspire-A315>
+
+Для потверждения учетной записи fshatruk@usetech.ru на портале
+http://localhost:8000 пройдите по ссылке http://localhost:8000/auth/veryfy/fshatruk@usetech.ru/9f975ef7ca815a709768bf51cce8ca1386712d91/
+-------------------------------------------------------------------------------

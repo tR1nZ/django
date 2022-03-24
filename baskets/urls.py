@@ -1,12 +1,12 @@
 
-from django.urls import path
+from django.urls import re_path
 
-from baskets.views import basket_add, basket_remove, basket_edit
+import baskets.views as baskets
 
 app_name = 'baskets'
 
 urlpatterns = [
-    path('basket-add/<int:product_id>/', basket_add, name='basket_add'),
-    path('basket-remove/<int:id>/', basket_remove, name='basket_remove'),
-    path('basket-edit/<int:id>/<int:quantity>/', basket_edit, name='basket_edit'),
+    re_path(r'^basket-add/<int:product_id>/$', baskets.basket_add, name='basket_add'),
+    re_path(r'^basket-remove/<int:id>/$', baskets.basket_remove, name='basket_remove'),
+    re_path(r'^basket-edit/<int:id>/<int:quantity>/$', baskets.basket_edit, name='basket_edit'),
 ]

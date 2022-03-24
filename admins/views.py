@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
