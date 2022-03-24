@@ -1,7 +1,7 @@
 import random, hashlib
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .models import ShopUser
+from .models import ShopUser, UserProfile
 
 from django.contrib.auth.forms import UserChangeForm
 
@@ -64,3 +64,10 @@ class ShopUserEditForm(UserChangeForm):
             raise forms.ValidationError("Вы слишком молоды!")
 
         return data
+
+
+class UserProfileEditForm(forms.ModelForm): # https://django-crispy-forms.readthedocs.io/en/latest/
+
+    class Meta:
+        model = UserProfile
+        fields = ('about', 'gender')

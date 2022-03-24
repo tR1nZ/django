@@ -1,0 +1,15 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JTQu9GPINCw0LrRgtC40LLQsNGG0LjQuCDQv9C+0LvRjNC30L7QstCw0YLQtdC7?=
+ =?utf-8?b?0Y8gcm9vdEBleGFtcGxlLmNvbSDQv9GA0L7QudC00LjRgtC1INC/0L4g0YHRgdGL?=
+ =?utf-8?b?0LvQutC1?=
+From: django@mail.com
+To: root2@example.com
+Date: Wed, 23 Mar 2022 08:29:07 -0000
+Message-ID: <164802414765.125365.11761290458604878130@fedor-Aspire-A315>
+
+Для потверждения учетной записи root@example.com на портале
+http://localhost:8000 пройдите по ссылке http://localhost:8000/auth/veryfy/root2@example.com/38adb3eaa2284509ae3cdb04041736a58c95f880/
+-------------------------------------------------------------------------------

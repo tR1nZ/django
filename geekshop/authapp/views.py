@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponseRedirect
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm
+from django.views.generic import TemplateView
+
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, UserProfileEditForm, ShopUserEditForm
 from django.contrib import auth
 from django.urls import reverse
 
-from authapp.forms import ShopUserEditForm
-from authapp.models import ShopUser
+from authapp.models import ShopUser, UserProfile
 
 
 def login(request):
@@ -23,9 +24,8 @@ def login(request):
         
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
-            auth.login(request, user)
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             if 'next' in request.POST.keys():
-                #print('redirect next', request.POST['next'])
                 return HttpResponseRedirect(request.POST['next'])
             else:
                 return HttpResponseRedirect(reverse('main'))
@@ -44,29 +44,36 @@ def logout(request):
     return HttpResponseRedirect(reverse('main'))
 
 
-def register(request):
-    title = 'регистрация'
+class UserRegisterView(TemplateView):
+    template_name = 'authapp/register.html'
+    register_form_class = ShopUserRegisterForm
+    model = ShopUser
 
-    def send_verify_link(user):
+    def send_verify_link(self, user):
         verify_link = reverse('auth:verify', args=[user.email, user.activation_key])
         subject = f'Для активации пользователя {user.username} пройдите по ссылке'
         message = f'Для потверждения учетной записи {user.username} на портале\n' \
                   f'{settings.DOMAIN_NAME} пройдите по ссылке {settings.DOMAIN_NAME}{verify_link}'
         return send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
 
-    if request.method == 'POST':
-        register_form = ShopUserRegisterForm(request.POST, request.FILES)
-    
+    def get_context_data(self, **kwargs):
+        title = 'регистрация'
+        context = super(UserRegisterView, self).get_context_data(**kwargs)
+        context.update(
+            title=title,
+            register_form=self.register_form_class()
+        )
+        return context
+
+    def post(self, request, *args, **kwargs):
+        register_form = self.register_form_class(request.POST, request.FILES)
+
         if register_form.is_valid():
             user = register_form.save()
-            send_verify_link(user)
+            self.send_verify_link(user)
             return HttpResponseRedirect(reverse('auth:login'))
-    else:
-        register_form = ShopUserRegisterForm()
-    
-    content = {'title': title, 'register_form': register_form}
-    
-    return render(request, 'authapp/register.html', content)
+        else:
+            return super().get(request, *args, **kwargs)
 
 
 def verify(request, email, activate_key):
@@ -77,7 +84,7 @@ def verify(request, email, activate_key):
             user.activation_key_expires = None
             user.is_active = True
             user.save(update_fields=['activation_key', 'activation_key_expires', 'is_active'])
-            auth.login(request, user)
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return render(request, 'authapp/verification.html')
     except Exception as e:
         pass
@@ -90,12 +97,13 @@ def edit(request):
     
     if request.method == 'POST':
         edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
-        if edit_form.is_valid():
+        profile_form = UserProfileEditForm(request.POST, instance=request.user.userprofile)
+        if edit_form.is_valid() and profile_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('auth:edit'))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
-    
-    content = {'title': title, 'edit_form': edit_form}
+        profile_form = UserProfileEditForm(instance=request.user.userprofile)
+    content = {'title': title, 'edit_form': edit_form, 'profile_form': profile_form}
     
     return render(request, 'authapp/edit.html', content)
